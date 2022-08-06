@@ -1,6 +1,7 @@
 package hello.jdbc.repository;
 
 import hello.jdbc.domain.Member;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,9 @@ class MemberRepositoryV0Test {
 
         Member foundMember = repository.findById(member.getMemberId());
 
-        System.out.println(foundMember);
+
+        repository.update(member.getMemberId(), 20000);
+        Member updatedMember = repository.findById(member.getMemberId());
+        Assertions.assertThat(updatedMember).isEqualTo(member);
     }
 }
